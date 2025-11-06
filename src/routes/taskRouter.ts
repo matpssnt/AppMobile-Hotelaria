@@ -1,11 +1,12 @@
 import { Router } from "express";
+import taskControllers from "../controllers/taskControllers";
 
 const routerTask = Router();
 
-routerTask.get("/", () => {console.log("Pegar todas as tarefas")})
-routerTask.get("/:id", () => {console.log("Pegar uma tarefa")})
-routerTask.post("/", () => {console.log("Cadastrar uma tarefa")})
-routerTask.put("/:id", () => {console.log("Atualizar uma tarefa")})
-routerTask.delete("/:id", () => {console.log("Deletar uma tarefa")})
+routerTask.get("/", taskControllers.getTasks)
+routerTask.get("/:id", taskControllers.getTask)
+routerTask.post("/", taskControllers.createTask)
+routerTask.put("/:id", taskControllers.updateTask)
+routerTask.delete("/:id", taskControllers.deleteTask)
 
 export default routerTask;
