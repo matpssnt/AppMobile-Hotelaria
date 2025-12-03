@@ -1,9 +1,7 @@
-test("example", () => {
-  const name = "Ana Teste Laura"
-  expect(name).toBe("Ana Laura Rocha")
-})
+test("GET: /tasks = 200", async () => {
+  const res = await fetch("http://localhost:3000/tasks/")
+  expect(res.status).toBe(200)
 
-test("example2", () => {
-  const result = 12 + 12
-  expect(result).toBe(24)
+  const body = await res.json()
+  expect(Array.isArray(body)).toBe(true)
 })

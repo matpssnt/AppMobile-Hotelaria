@@ -9,7 +9,7 @@ async function getAllTasks() : Promise<Task[] | any> {
     })
 }
 
-async function getTask(id:Number) : Promise<Task|any> {
+async function getTask(id:Number) : Promise<Task | any> {
     return new Promise((resolve, reject) => {
         const task = taskList.find(t => t.id === id)
         return resolve(task)
