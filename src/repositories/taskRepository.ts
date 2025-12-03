@@ -5,7 +5,6 @@ const taskList:Task[] = []
 
 async function getAllTasks() : Promise<Task[] | any> {
     return new Promise((resolve, reject) => {
-        const task = taskList.find(t => t.id === id)
         return resolve(taskList)
     })
 }
@@ -28,7 +27,7 @@ async function createTask(data:Task) : Promise<Task> {
     })
 }
 
-async function updateTask(id.Number, data:Task) : Promise<Task> {
+async function updateTask(id:Number, data:Task) : Promise<Task> {
     return new Promise((resolve, reject) => {
         const index = taskList.findIndex(t => t.id === id)
         if(index == -1) {
@@ -40,7 +39,7 @@ async function updateTask(id.Number, data:Task) : Promise<Task> {
     })
 }
 
-async function deleteTask(id.Number) : Promise<Task|any> {
+async function deleteTask(id:Number) : Promise<Task|any> {
     return new Promise((resolve, reject) => {
         const index = taskList.findIndex(t => t.id === id)
         if (index == -1) {
