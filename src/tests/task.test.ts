@@ -85,5 +85,5 @@ test("POST: /tasks = 400 (Error create task)", async() => {
   expect(res.status).toBe(400);
 
   const content = await res.json()
-  expect(content).toHaveProperty('erro', 'dados incompletos')
+  expect(content).toHaveProperty('erro', 'Dados invalidos')
 })
