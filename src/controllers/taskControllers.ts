@@ -16,9 +16,9 @@ async function getTask(req:Request, res:Response, next:NextFunction) {
 }
 
 async function createTask(req:Request, res:Response, next:NextFunction) {
-  const taks = req.body as Task
+  const tasks = req.body as Task
   try {
-    const result = await taskRepository.createTask(taks)
+    const result = await taskRepository.createTask(tasks)
     return res.status(201).json(result)
   } 
   catch(error) {

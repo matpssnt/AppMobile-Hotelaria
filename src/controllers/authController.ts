@@ -2,25 +2,12 @@ import { Request, Response, NextFunction } from "express";
 
 async function postLogin(req:Request, res:Response, next:NextFunction) {
     try {
-        const {email, password} = req.body;
-
-        console.log("Email: fulano@email.com");
-        console.log("Password: 123456789");
-
-        return res.status(200).json({
-            message: "Dados recebidos com sucesso",
-            data: {
-                email,
-                password
-            }
-        });
+        console.log("Informações recebidas: ", req.body)
+        return res.sendStatus(201)
     }
     catch (error) {
-        console.log("Erro ade login: ", error)
-
-        res.status(400).json({
-            error: "Erro ao tentar logar"
-        })
+        console.log("Erro")
+        return res.sendStatus(405)
     }
 }
 
