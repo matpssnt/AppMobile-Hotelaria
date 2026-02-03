@@ -1,8 +1,8 @@
 const url_base:string = "http://localhost:3000/api/login"
 
 const new_login = {
-    email: "fulano@email.com",
-    password: "123456789"
+    email: "fff",
+    password: "123"
 }
 
 test("POST: /login = 200", async() => {
@@ -13,3 +13,7 @@ test("POST: /login = 200", async() => {
   }) 
   expect(res.status).toBe(201);
 })
+
+// test("POST: /login (sem senha) = 400", async () => {
+
+// })
