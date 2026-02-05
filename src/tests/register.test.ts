@@ -1,15 +1,18 @@
-const url_base:string = "http://localhost:3000/api/login"
+const url_base2:string = "http://localhost:3000/register"
 
-const new_login = {
-    email: "fff",
-    senha: "123"
+const new_reg = {
+    nome: "",
+    email: "",
+    telefone: "",
+    cpf: "",
+    senha: ""
 }
 
 test("POST: /login = 200", async() => {
-  const res = await fetch(url_base, {
+  const res = await fetch(url_base2, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(new_login)
+    body: JSON.stringify(new_reg)
   }) 
   expect(res.status).toBe(200);
   const json = await res.json()

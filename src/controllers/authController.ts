@@ -1,29 +1,43 @@
 import { Request, Response, NextFunction } from "express";
 import loginRepository from "../repositories/loginRepository"
+import {validateHash} from "../utils/password";
+import { createJWT } from "../utils/jwt";
 
 async function postLogin(req:Request, res:Response, next:NextFunction) {
-    const {email, password} = req.body;
+    const {email, senha} = req.body;
 
-    if (!email || !password) {
+    if (!email || !senha) {
         return res.sendStatus(400).json({error: "Email e Senha são obrigatórios!"})
     }
 
-    if (email.trim() === "" || password.trim() === "") {
-        return res.status(400).json({error: "Email e senha estão vazios"})
+    if (email.trim() === "" || senha.trim() === "") {
+        return res.status(401).json({error: "Email e senha estão vazios"})
     }
 
+    // Consulta no banco de dados
     try {
         const result = await loginRepository.validateLogin(email);
         if (!result) {
-            throw new Error()
+            throw new Error("Login incorreto!")
         }
-        
-        console.log(result.email)
-        console.log(result.senha)
-        return res.sendStatus(200);
+
+        // Validar senha do login
+        const resultPassword = await validateHash(senha, result.senha)
+        if (!resultPassword) {
+            throw new Error("Senha inválida!")
+        }
+
+        // Remover senha do objeto
+        const {senha:_senha, ...cliente} = result
+
+        // Cria o token do cliente
+        const token = createJWT(cliente);
+
+        return res.status(200).json({token});
     }
     catch (error) {
-        return res.status(401).json({erro: "Credenciais inválidas!"})
+        console.log(error)
+        return res.status(402).json({erro: "Credenciais inválidas!"})
     }
 }
 
