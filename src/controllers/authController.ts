@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import loginRepository from "../repositories/loginRepository"
-import {validateHash} from "../utils/password";
+import { validateHash, generateHash } from "../utils/password";
 import { createJWT } from "../utils/jwt";
 
 async function postLogin(req:Request, res:Response, next:NextFunction) {
@@ -41,7 +41,39 @@ async function postLogin(req:Request, res:Response, next:NextFunction) {
     }
 }
 
+async function postRegister(req:Request, res:Response, next:NextFunction) {
+    const {nome, email, telefone, cpf, senha} = req.body;
+
+    if (!nome || !email || !telefone || !cpf || !senha) {
+        return res.sendStatus(400).json({error: "Os dados do cadastro são obrigatórios!"})
+    }
+
+    if (nome.trim() === "" || email === "" || telefone.trim() === "" || cpf.trim() === "" || senha.trim() === "") {
+        return res.status(401).json({error: "Os dados estão vazios, preencha os dados obrigatórios"})
+    }
+
+
+    try {
+        const passwordHash = await generateHash(senha);
+        const register = {nome, email, telefone, cpf, senha:passwordHash};
+        const result = await loginRepository.createRegister(register)
+
+        if (!result) {
+            throw new Error("Erro na criação do login")
+        }
+
+        const {senha:_senha, cpf:_cpf, telefone:_tel, ...cliente} = result
+
+        const token = createJWT(cliente)
+        return res.status(200).json(token)
+    }
+    catch (error) {
+        console.log("Erro", error)
+        return res.status(400).json({erro: "Erro ao criar Login"})
+    }
+}
+
 export default {
-    postLogin
+    postLogin, postRegister
 };
 

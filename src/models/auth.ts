@@ -7,3 +7,11 @@ export type login = RowDataPacket & {
     senha: string,
     cargo: string
 }
+
+export type register = {
+    nome: string,
+    email: string,
+    telefone: string,
+    cpf: string,
+    senha: string
+}
