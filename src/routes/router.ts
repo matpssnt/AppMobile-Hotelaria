@@ -1,14 +1,23 @@
 import { Router } from "express";
-import routerTask from "./taskRouter";
-import routerAuth from "./authRouter";
 import { middleware } from "./jwtMiddleware";
 import { createJWT } from "../utils/jwt";
+
+import routerTask from "./taskRouter";
+import routerAuth from "./authRouter";
+import routerRoom from "./roomRouter";
+import routerReserve from "./reserveRouter";
 
 const handlerRouter = Router();
 
 // Public routes
-handlerRouter.use("/tasks", routerTask)
-handlerRouter.use("/api/login", routerAuth)
+handlerRouter.use("/tasks", routerTask);
+handlerRouter.use("/api/login", routerAuth);
+handlerRouter.use("/api/quartosDisponiveis", routerRoom);
+
+
+// Private routes
+handlerRouter.use("/api/reservas", middleware, routerReserve);
+
 
 handlerRouter.use("/jwt", (req, res) => {
   const payload = {
@@ -18,8 +27,6 @@ handlerRouter.use("/jwt", (req, res) => {
   }
   res.json(createJWT(payload))
 })
-
-// Private routes
 
 handlerRouter.get("/jwtest", middleware, (req, res) => {
   res.json("passou pelo JWT middleware")
