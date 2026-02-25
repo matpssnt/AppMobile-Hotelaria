@@ -4,7 +4,7 @@ import { formatDateHour } from "../utils/dateHour";
 
 
 async function createOrder(req:Request, res: Response, next:NextFunction) {
-    const token = req.payload;
+    const token = (req as any).payload;
     const {pagamento, quartos} = req.body;
 
     if (!token || !pagamento || !quartos) {

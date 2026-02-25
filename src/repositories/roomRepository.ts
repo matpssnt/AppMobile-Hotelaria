@@ -2,7 +2,7 @@ import {pool} from "../database/db";
 import { RowDataPacket } from "mysql2";
 import { RoomReserve, Rooms } from "../models/room";
 
-async function availables(order:RoomReserve): Promise<Rooms | null> {
+async function availables(order:RoomReserve): Promise<Rooms[] | null> {
     const sql = 
     `
         SELECT * FROM quartos q

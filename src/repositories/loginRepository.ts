@@ -27,7 +27,7 @@ async function createRegister(register:register): Promise<login|null> {
         register.senha,
     ]);
     if (result.insertId) {
-        const sucess:login = {id:result.insertId, ...register}
+        const sucess:login = {id:result.insertId, ...register, cargo: "cliente"} as login
         return sucess
     }
     return null;
