@@ -7,11 +7,11 @@ async function postLogin(req:Request, res:Response, next:NextFunction) {
     const {email, senha} = req.body;
 
     if (!email || !senha) {
-        return res.sendStatus(400).json({error: "Email e Senha são obrigatórios!"})
+        return res.status(400).json({error: "Email e Senha são obrigatórios!"})
     }
 
     if (email.trim() === "" || senha.trim() === "") {
-        return res.status(401).json({error: "Email e senha estão vazios"})
+        return res.status(400).json({error: "Email e senha estão vazios"})
     }
 
     // Consulta no banco de dados
@@ -33,11 +33,10 @@ async function postLogin(req:Request, res:Response, next:NextFunction) {
         // Cria o token do cliente
         const token = createJWT(cliente);
 
-        return res.status(200).json({token});
+        return res.status(200).json(token);
     }
     catch (error) {
-        console.log(error)
-        return res.status(402).json({erro: "Credenciais inválidas!"})
+        return res.status(401).json({erro: "Credenciais inválidas!"})
     }
 }
 
@@ -45,11 +44,11 @@ async function postRegister(req:Request, res:Response, next:NextFunction) {
     const {nome, email, telefone, cpf, senha} = req.body;
 
     if (!nome || !email || !telefone || !cpf || !senha) {
-        return res.sendStatus(400).json({error: "Os dados do cadastro são obrigatórios!"})
+        return res.status(400).json({error: "Os dados do cadastro são obrigatórios!"})
     }
 
-    if (nome.trim() === "" || email === "" || telefone.trim() === "" || cpf.trim() === "" || senha.trim() === "") {
-        return res.status(401).json({error: "Os dados estão vazios, preencha os dados obrigatórios"})
+    if (nome.trim() === "" || email.trim() === "" || telefone.trim() === "" || cpf.trim() === "" || senha.trim() === "") {
+        return res.status(400).json({error: "Os dados estão vazios, preencha os dados obrigatórios"})
     }
 
 

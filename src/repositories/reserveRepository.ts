@@ -3,12 +3,13 @@ import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 async function makeOrder(data:any) {
     const sql = `
-        INSERT INTO pedidos (cliente_id, pagamento) 
-        VALUES (?, ?)
+        INSERT INTO pedidos (usuario_id, cliente_id, pagamento) 
+        VALUES (?, ?, ?);
     `;
 
     try {
         const [result] = await pool.query<ResultSetHeader>(sql, [
+            4,
             data.cliente_id,
             data.pagamento
         ]);
@@ -23,14 +24,15 @@ async function makeOrder(data:any) {
 
 async function makeReserve(idPedido:number, room:any) {
     const sql = `
-        INSERT INTO reservas (pedido_id, quarto_id, fim, inicio) 
-        VALUES (?, ?, ?, ?);
+        INSERT INTO reservas (pedido_id, quarto_id, adicional_id, fim, inicio) 
+        VALUES (?, ?, ?, ?, ?);
     `;
 
     try {
         const [result] = await pool.query<ResultSetHeader>(sql, [
             idPedido,
             room.id,
+            2,
             room.fim,
             room.inicio
         ]);

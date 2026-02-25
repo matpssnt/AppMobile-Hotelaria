@@ -16,14 +16,21 @@ test("POST: /login = 200", async() => {
   }) 
   expect(res.status).toBe(200);
   const json = await res.json()
-  console.log(json);
+  // console.log(json);
 })
 
-// test("POST: /login (sem senha) = 400", async () => {
-//   const res = await fetch(url_base, {
-//   });
-//   expect(res.status).toBe(400);
-// })
+
+test("POST / login(sem senha) = 400", async () => {
+    const res = await fetch(url_base, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            email: "fff",
+            senha: ""}
+        )
+    });
+    expect(res.status).toBe(400);
+});
 
 
 
@@ -42,4 +49,6 @@ test("POST /register = 200", async ()=>{
     })
   })
   expect(res.status).toBe(200);
+  const token = await res.json();
+  // console.log(token);
 })

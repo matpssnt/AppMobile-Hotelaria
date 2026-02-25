@@ -1,12 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import reserveRepository from "../repositories/reserveRepository";
-
-
-async function fixDateHour(data:string, hour:number) {
-    let newDate = new Date(data);
-    newDate.setHours(hour, 0, 0, 0);
-    return newDate;
-}
+import { formatDateHour } from "../utils/dateHour";
 
 
 async function createOrder(req:Request, res: Response, next:NextFunction) {
@@ -33,8 +27,8 @@ async function createOrder(req:Request, res: Response, next:NextFunction) {
 
         for (let q of quartos) {
 
-            q.inicio = await fixDateHour(q.inicio, 14);
-            q.fim = await fixDateHour(q.fim, 12);
+            q.inicio = await formatDateHour(q.inicio, 14);
+            q.fim = await formatDateHour(q.fim, 12);
 
             const reserveID = await reserveRepository.makeReserve(pedidoID, q);
             
@@ -43,7 +37,6 @@ async function createOrder(req:Request, res: Response, next:NextFunction) {
             result.push({...q, reservaID: reserveID});
             
         }
-        console.log(result)
 
         res.status(200).json({
             message: "Reserva feita com sucesso!",

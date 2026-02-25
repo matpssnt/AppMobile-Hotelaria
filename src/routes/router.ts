@@ -12,11 +12,11 @@ const handlerRouter = Router();
 // Public routes
 handlerRouter.use("/tasks", routerTask);
 handlerRouter.use("/api/login", routerAuth);
-handlerRouter.use("/api/quartosDisponiveis", routerRoom);
+handlerRouter.use("/api/roomsAvailable", routerRoom);
 
 
 // Private routes
-handlerRouter.use("/api/reservas", middleware, routerReserve);
+handlerRouter.use("/api/reserve", middleware, routerReserve);
 
 
 handlerRouter.use("/jwt", (req, res) => {
