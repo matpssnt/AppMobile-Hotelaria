@@ -1,8 +1,8 @@
 const url_base:string = "http://localhost:3000/api/login"
 
 const new_login = {
-    email: "fff",
-    senha: "123"
+    email: "pamella@email.com",
+    senha: "123456"
 }
 
 
@@ -42,13 +42,13 @@ test("POST /register = 200", async ()=>{
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
       nome: "Possonato",
-      email: "possonato@email.com",
-      telefone: "(00) 00000-0000",
-      cpf: "123.456.789-00",
-      senha: "123"
+      email: "posso1@email.com",
+      telefone: "(00) 00000-0001",
+      cpf: "18675675686",
+      senha: "123456"
     })
   })
   expect(res.status).toBe(200);
   const token = await res.json();
-  // console.log(token);
+  console.log(token);
 })

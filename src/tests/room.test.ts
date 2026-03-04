@@ -5,8 +5,8 @@ test("POST: /api/roomsAvailable = 200", async()=>{
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            inicio:"11/02/2026",
-            fim:"12/02/2026",
+            inicio:"2026/02/11",
+            fim:"2026/02/12",
             quantidade:1
         })
     });
