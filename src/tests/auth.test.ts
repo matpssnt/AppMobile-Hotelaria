@@ -7,7 +7,6 @@ const new_login = {
 
 
 //Teste de Login
-
 test("POST: /login = 200", async() => {
   const res = await fetch(url_base, {
     method: "POST",
@@ -33,22 +32,20 @@ test("POST / login(sem senha) = 400", async () => {
 });
 
 
-
-//Teste de Register
-
+// //Teste de Register
 test("POST /register = 200", async ()=>{
   const res = await fetch(url_base + "/register", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
-      nome: "Possonato",
-      email: "posso1@email.com",
-      telefone: "(00) 00000-0001",
-      cpf: "18675675686",
+      nome: "Possonato1",
+      email: "posso11@email.com",
+      telefone: "(00) 00000-0002",
+      cpf: "18675675687",
       senha: "123456"
     })
   })
   expect(res.status).toBe(200);
   const token = await res.json();
-  console.log(token);
+  // console.log(token);
 })

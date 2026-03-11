@@ -3,9 +3,7 @@ import { RowDataPacket } from "mysql2";
 import { RoomReserve, Rooms } from "../models/room";
 
 async function availables(order:RoomReserve): Promise<Rooms[] | null> {
-    const sql = 
-    `
-        SELECT * FROM quartos q
+    const sql = `SELECT * FROM quartos q
         WHERE q.disponivel = 1
         AND (q.qnt_cama_casal * 2 + q.qnt_cama_solteiro) >= ?
         AND q.id NOT IN (
@@ -20,7 +18,6 @@ async function availables(order:RoomReserve): Promise<Rooms[] | null> {
         order.fim
     ])
     return rooms.length ? rooms : null
-    
 }
 
 async function searchImagesById(id:number) {
